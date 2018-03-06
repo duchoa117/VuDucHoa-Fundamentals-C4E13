@@ -1,0 +1,16 @@
+a=int(input('ban muon bao nhieu hinh nao :))) '))
+from turtle import*
+speed(-100)
+color('red')
+right(360/(a+2*a))
+for i in range(a):
+    forward(100)
+    left(240/a)
+    forward(100)
+    left(180-240/a)
+    forward(100)
+    left(240/a)
+    forward(100)
+    right(180-120/a)
+mainloop()
+# neu anh muon nhu de bai thi cho a la 4 nhe a e de speed -100 a cu test cho vui :))
