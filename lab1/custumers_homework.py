@@ -27,7 +27,7 @@ import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib import pyplot
 labels = ['events', 'wom', 'ads']
-values = [1, 2, 2]
+values = [ref_events, ref_wom, ref_ads]
 pyplot.pie(values, labels = labels )
 pyplot.axis('equal')
 pyplot.show()
