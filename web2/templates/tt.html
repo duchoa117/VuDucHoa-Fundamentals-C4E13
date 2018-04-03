@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mùa đông không lạnh</title>
+  </head>
+  <body>
+    <h1>Warn winter</h1>
+    <b>All of informations </b><a href="http://localhost:5000/search">Click</a>
+    <br>
+    <b>10 men are not yet contacted </b><a href="{{ url_for('search', gender = 1)}}">Click</a>
+    <br>
+    <b>10 women are not yet contacted </b><a href="{{ url_for('search', gender = 0)}}">Click</a>
+
+  </body>
+</html>

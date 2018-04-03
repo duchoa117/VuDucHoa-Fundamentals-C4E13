@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% for service in all_services %}
+    {% if service.gender == 0 %}
+    <img src="../static/woman.png" alt="ảnh nóng">
+    {% else %}
+    <img src="../static/man.png" alt="ảnh nóng">
+    {% endif %}
+
+    <p>Name: {{ service.name }}</p>
+    <p>Email :{{ service.email }}</p>
+    <p>Phone number: {{ service.phone_number }}</p>
+    <p>Job: {{ service.job }}</p>
+    <p>Company: {{ service.company}} </p>
+    <p>Contacted: {{ service.contacted}} </p>
+    {% endfor %}
+
+
+
+  </body>
+</html>
