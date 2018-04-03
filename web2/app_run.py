@@ -13,8 +13,12 @@ def search_all():
     return render_template('service.html', all_services = get_services)
 @app.route('/search/<gender>')
 def search(gender):
-    all_services = Service.objects(gender = gender,contacted = "free")[:10]
-    return render_template("service.html",all_services = all_services)
+    all_services = Service.objects(gender = gender,contacted = "free")
+    if len(all_services) == 0:
+        return "HẾT HÀNG"
+    ten_services = all_services[:10]
+
+    return render_template("service.html",all_services = ten_services)
 
 
 if __name__ == '__main__':
