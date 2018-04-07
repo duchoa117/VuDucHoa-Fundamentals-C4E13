@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>River</h1>
+    <table border = "1px">
+      <thead>
+        <td>STT</td>
+        <td>Name</td>
+        <td>Continent</td>
+        <td>Length(km)</td>
+      </thead>
+      <tbody>
+        {% for river in all_rivers %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ river.name }}</td>
+          <td>{{ river.continent }}</td>
+          <td>{{ river.length }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+
+  </body>
+</html>
