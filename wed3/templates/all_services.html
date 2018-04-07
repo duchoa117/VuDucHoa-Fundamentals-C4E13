@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="{{ url_for('update')}}">UPDATE</a>
+    <br>
+    <br>
+    {% for service in services %}
+    <img src="{{ service.image }}" alt="Đợi đi">
+    <br>
+    <h3>{{ service.name }}</h3>
+    <a href="{{ url_for('detail',service_id = service.id) }}">Detail</a>
+    <br>
+    <br>
+
+    {% endfor %}
+
+  </body>
+</html>

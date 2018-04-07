@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Fix service</h1>
+    <form method="post">
+      {% for service in services %}
+      <label>Name</label>
+      <input type="text" name="name" value="{{ service.name }}">
+      <br>
+      <label>Male</label>
+      <input type="radio" name="gender" value= "1">
+      <label>Female</label>
+      <input type="radio" name="gender" value= "0">
+      <br>
+      <label>Yob</label>
+      <input type="number" name="yob" value="{{ service.yob}}">
+      <br>
+      <label>Height</label>
+      <input type="number" name="height" value="{{ service.height}}">
+      <br>
+      <label>Phone number</label>
+      <input type="text" name="phone_number" value="{{ service.phone_number}}">
+      <br>
+      <label>Address</label>
+      <input type="text" name="address" value="{{ service.address}}">
+      <br>
+      <label>Description</label>
+      <input type="text" name="description" value="{{ service.description}}">
+      <br>
+      <label>Measurements</label>
+      <input type="number" name="m_1" value="{{ service.measurements[0]}}">-<input type="number" name="m_2" value="{{ service.measurements[1]}}">-<input type="number" name="m_3" value="{{ service.measurements[2]}}">
+      <br>
+      <label>Link image</label>
+      <input type="text" name="image" value="{{ service.image}}">
+      <br>
+      <input type="submit">
+      {% endfor %}
+
+    </form>
+
+
+  </body>
+</html>

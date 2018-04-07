@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% for service in services %}
+    <img src="{{ service.image }}" alt="Đợi đi">
+    <br>
+    <h3>{{ service.name }}</h3>
+    <b>Gender: {{ "Male" if service.gender == 1 else "Female" }}</b>
+    <br>
+    <br>
+    <b>Year of birth: {{ service.yob }}</b>
+    <br>
+    <br>
+    <b>Height: {{ service.height }} (cm)</b>
+    <br>
+    <br>
+    <b>Phone number: {{ service.phone_number }}</b>
+    <br>
+    <br>
+    <b>Addserss: {{ service.address }}</b>
+    <br>
+    <br>
+    <b>Description: {{ service.description }}</b>
+    <br>
+    <br>
+    <b>Measurements: {{ service.measurements[0]}}-{{ service.measurements[1]}}-{{ service.measurements[2]}}</b>
+    <br>
+    <a href="{{ url_for('fix',service_id = service.id) }}">Fix</a>
+    <br>
+    <a href="{{ url_for('delete',service_id = service.id) }}">Delete</a>
+    <br>
+    {% endfor %}
+
+  </body>
+</html>
