@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <table border="1px">
+
+    <thead>
+      <th>STT</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Yob</th>
+      <th>Height</th>
+      <th>Phone number</th>
+      <th>Address</th>
+      <th>Description</th>
+      <th>Measurements</th>
+      <th>Link image</th>
+      
+    </thead>
+
+    <tbody>
+      {% for service in services %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ service.name }}</td>
+        <td>{{ "Male" if service.gender == 1 else "Female" }}</td>
+        <td>{{ service.yob }}</td>
+        <td>{{ service.height }}</td>
+        <td>{{ service.phone_number }}</td>
+        <td>{{ service.address }}</td>
+        <td>{{ service.description }}</td>
+        <td>{{ service.measurements }}</td>
+        <td>{{ service.image}}</td>
+        <td> <a href="{{ url_for('fix',service_id = service.id) }}">Fix</a> </td>
+        <td> <a href="{{url_for('delete',service_id = service.id)}}">Delete</a> </td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+      </table>
+
+  </body>
+</html>

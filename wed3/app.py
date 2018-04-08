@@ -8,16 +8,20 @@ mlab.connect()
 def all_services():
     services = Service.objects()
     return render_template('all_services.html',services = services)
+@app.route('/admin')
+def admin():
+    services = Service.objects()
+    return render_template("admin.html",services = services)
 @app.route('/detail/<service_id>')
 def detail(service_id):
     print(service_id)
     services = Service.objects(id = service_id)
     return render_template('detail_all_services.html',services = services)
-@app.route('/update',methods = ["GET", "POST"])
-def update():
+@app.route('/create',methods = ["GET", "POST"])
+def create():
     if request.method == "GET":
 
-        return render_template('Update.html')
+        return render_template('create.html')
     elif request.method == "POST":
         form = request.form
         new_service = Service(

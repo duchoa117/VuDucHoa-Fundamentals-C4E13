@@ -5,7 +5,9 @@
     <title></title>
   </head>
   <body>
-    <a href="{{ url_for('update')}}">UPDATE</a>
+    <a href="{{ url_for('admin') }}">ADMIN</a>
+    <br>
+    <a href="{{ url_for('create')}}">CREATE</a>
     <br>
     <br>
     {% for service in services %}

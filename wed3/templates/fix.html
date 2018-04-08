@@ -12,9 +12,16 @@
       <input type="text" name="name" value="{{ service.name }}">
       <br>
       <label>Male</label>
-      <input type="radio" name="gender" value= "1">
+      {% if service.gender == 1 %}
+      <input type="radio" name="gender" value= "1" checked>
       <label>Female</label>
       <input type="radio" name="gender" value= "0">
+      {% else %}
+      <input type="radio" name="gender" value= "1">
+      <label>Female</label>
+      <input type="radio" name="gender" value= "0" checked>
+      {% endif %}
+
       <br>
       <label>Yob</label>
       <input type="number" name="yob" value="{{ service.yob}}">
