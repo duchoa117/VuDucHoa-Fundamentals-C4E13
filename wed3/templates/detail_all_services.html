@@ -29,10 +29,12 @@
     <br>
     <b>Measurements: {{ service.measurements[0]}}-{{ service.measurements[1]}}-{{ service.measurements[2]}}</b>
     <br>
-    <a href="{{ url_for('fix',service_id = service.id) }}">Fix</a>
     <br>
-    <a href="{{ url_for('delete',service_id = service.id) }}">Delete</a>
+    <b>Status: {{ service.status }}</b>
     <br>
+    {% if service.status == "Free" %}
+      <a href="{{ url_for('get_service', user = user.username , service = service.name , user_id = user.id, service_id = service.id)}}">Get this service</a>
+    {% endif %}
     {% endfor %}
 
   </body>

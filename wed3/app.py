@@ -1,9 +1,14 @@
 from flask import*
-app = Flask(__name__)
-from models.class_c4e_services import Service
-import mlab
-mlab.connect()
+from random import randint
+from gmail import GMail, Message
+import datetime
 
+
+app = Flask(__name__)
+from models.class_c4e_services import *
+import mlab
+app.secret_key = "anhquydeptraichoe10diemdi:VVVV"
+mlab.connect()
 @app.route('/')
 def all_services():
     services = Service.objects()
@@ -12,11 +17,23 @@ def all_services():
 def admin():
     services = Service.objects()
     return render_template("admin.html",services = services)
+@app.route("/admin/trade_information")
+def trade_table():
+    trades = Trade.objects()
+    return render_template("trade_table.html", trades = trades)
 @app.route('/detail/<service_id>')
 def detail(service_id):
-    print(service_id)
-    services = Service.objects(id = service_id)
-    return render_template('detail_all_services.html',services = services)
+    checked = False
+    users = User.objects()
+    for user in users:
+        if str(user["id"]) in session:
+            user = user
+            checked = True
+    if checked:
+        services = Service.objects(id = service_id)
+        return render_template('detail_all_services.html',services = services, user = user )
+    else:
+        return redirect(url_for('loggin'))
 @app.route('/create',methods = ["GET", "POST"])
 def create():
     if request.method == "GET":
@@ -33,7 +50,8 @@ def create():
             address = form["address"],
             description = form["description"],
             measurements = [form["m_1"], form["m_2"], form["m_3"]],
-            image = form["image"]
+            image = form["image"],
+            status = form["status"]
 
 
         )
@@ -55,7 +73,8 @@ def fix(service_id):
                 set__address = form["address"],
                 set__description = form["description"],
                 set__measurements = [form["m_1"], form["m_2"], form["m_3"]],
-                set__image = form["image"]
+                set__image = form["image"],
+                set__status = form["status"]
 
         )
         return redirect(url_for('all_services'))
@@ -64,6 +83,114 @@ def delete(service_id):
     services = Service.objects(id = service_id)
     services.delete()
     return redirect(url_for('all_services'))
+@app.route("/sign_up", methods = ["GET", "POST"])
+def sign_up():
+    confirm_username = False
+    confirm_email = False
+    if request.method == "GET":
+        return render_template("sign_up.html")
+    elif request.method == "POST":
+        form = request.form
+        users = User.objects()
+        for user in users:
+            if form["email"] == user["email"]:
+                confirm_email = True
+            if form['username'] == user['username']:
+                confirm_username = True
+        if confirm_email:
+            return "Email has been used. Try again"
+        elif confirm_username:
+            return "Username has been used. Try again"
+        else:
+            str_password = str(randint(1000,9999))
+
+            new_user = User(
+                fullname = form["fullname"],
+                email = form["email"],
+                username = form["username"],
+                password = str_password
+
+            )
+            new_user.save()
+            users = User.objects(username = form["username"])
+            from gmail import GMail, Message
+            accept_account = """
+            <h1>Accept your Warm winter Account</h1>
+<h3><strong>Username: {{username}}</strong></h3>
+<h3>Password: {{password}}</h3>
+<p>" You can change your password in here :<a href="http://localhost:5000/password_change">http://localhost:5000/password_change</a> "</p>
+<p>&nbsp;</p>
+<div class="HOEnZb adL">
+<div class="im">
+<p style="text-align: center;"><strong><em>"Thanks for use our program"</em></strong></p>
+</div>
+</div>
+    """
+
+
+            accept_account = accept_account.replace('{{username}}',form['username'])
+            accept_account = accept_account.replace('{{password}}',str_password)
+            gmail = GMail('duchoapc99techkids@gmail.com', 'duchoa119')
+            msg = Message('Accept Account', to= form['email'], html= accept_account)
+            gmail.send(msg)
+            return "Check your Email to Loggin"
+@app.route('/loggin',methods = ["GET", "POST"] )
+def loggin():
+    if request.method == "GET":
+        return render_template('loggin.html')
+    if request.method == "POST":
+        checked = False
+        form = request.form
+        users = User.objects()
+        for user in users:
+            if form['username'] == user['username'] and form['password'] == user['password']:
+                checked = True
+
+        if checked:
+            username_exact = User.objects(username__exact = form["username"])
+            session[str(username_exact[0]["id"])] = True
+            return redirect(url_for('all_services'))
+        else:
+            return "Fail"
+@app.route("/get_service/<user>/<service>/<user_id>/<service_id>")
+def get_service(user, service, user_id, service_id):
+    now = datetime.datetime.now()
+    new_trade = Trade(
+        user = user,
+        service = service,
+        datetime = str(now),
+        is_accept = True,
+        user_id = user_id,
+        service_id = service_id
+
+    )
+    new_trade.save()
+
+    return "Already sent"
+@app.route("/confirmed/<user_id>/<service_id>")
+def confirm(user_id, service_id):
+    Trade.objects(service_id = service_id).update(set__is_accept = False)
+    Service.objects(id = service_id).update(set__status = "Busy")
+    Service.reload()
+    Trade.reload()
+    return redirect(url_for('trade_table'))
+@app.route("/password_change", methods = ["GET", 'POST'])
+def password():
+    if request.method == 'GET':
+        return render_template('password_change.html')
+    elif request.method == "POST":
+        form = request.form
+        checked = False
+        users = User.objects()
+        for user in users:
+            if user['username'] == form['username'] and user['password'] == form['password']:
+                checked = True
+        if checked:
+            User.objects(username = form['username']).update(set__password = form["new_password"])
+            User.reload()
+            return redirect(url_for('all_services'))
+        else:
+            return "Wrong. Try again"
 
 
 

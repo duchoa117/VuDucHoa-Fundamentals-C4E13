@@ -5,6 +5,11 @@
     <title></title>
   </head>
   <body>
+    <h1> <a href="{{url_for('trade_table')}}">Trade imformation</a>
+    </h1>
+    <br>
+    <h1><a href="{{ url_for('create')}}">Create</a>
+    </h1>
     <table border="1px">
 
     <thead>
@@ -12,13 +17,14 @@
       <th>Name</th>
       <th>Gender</th>
       <th>Yob</th>
-      <th>Height</th>
+      <th>Height(cm)</th>
       <th>Phone number</th>
       <th>Address</th>
       <th>Description</th>
       <th>Measurements</th>
-      <th>Link image</th>
-      
+      <th>Image</th>
+      <th>Status</th>
+
     </thead>
 
     <tbody>
@@ -32,8 +38,10 @@
         <td>{{ service.phone_number }}</td>
         <td>{{ service.address }}</td>
         <td>{{ service.description }}</td>
-        <td>{{ service.measurements }}</td>
-        <td>{{ service.image}}</td>
+        <td>{{ service.measurements[0] }}-{{ service.measurements[1] }}-{{ service.measurements[2] }}</td>
+        <td> <img src="{{ service.image }}" alt="" width ="150px" height="150px">
+        </td>
+        <td>{{ service.status }}</td>
         <td> <a href="{{ url_for('fix',service_id = service.id) }}">Fix</a> </td>
         <td> <a href="{{url_for('delete',service_id = service.id)}}">Delete</a> </td>
       </tr>

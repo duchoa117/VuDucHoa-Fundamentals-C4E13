@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <table border = "1px">
+      <thead>
+        <th>STT</th>
+        <th>User</th>
+        <th>Service</th>
+        <th>Datetime</th>
+        <th>Status</th>
+
+      </thead>
+      <tbody>
+        {% for trade in trades %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ trade.user }}</td>
+          <td>{{ trade.service }}</td>
+          <td>{{ trade.datetime }}</td>
+          <td>{% if trade.is_accept == True %}
+                <a href="{{ url_for('confirm', user_id = trade.user_id, service_id = trade.service_id)}}">Confirm</a>
+              {% elif trade.is_accept == False %}
+                Already confirmed
+              {% endif %}
+          </td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

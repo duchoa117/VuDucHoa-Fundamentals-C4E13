@@ -11,5 +11,6 @@ infor_service = Service(
     address = "210 Xã Đàn",
     description = "Hài hước, đẹp trai =)),....",
     measurements = [98,80,89]
+    status = "Free"
 )
 infor_service.save()
