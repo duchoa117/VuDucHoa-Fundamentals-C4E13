@@ -154,19 +154,28 @@ def loggin():
             return "Fail"
 @app.route("/get_service/<user>/<service>/<user_id>/<service_id>")
 def get_service(user, service, user_id, service_id):
-    now = datetime.datetime.now()
-    new_trade = Trade(
-        user = user,
-        service = service,
-        datetime = str(now),
-        is_accept = True,
-        user_id = user_id,
-        service_id = service_id
+    checked = False
+    trades = Trade.objects()
+    for trade in trades :
+        if user_id == trade['user_id'] and service_id == trade['service_id']:
+            checked = True
+    if checked:
+        return " You have already got this service"
+    else:
+        now = datetime.datetime.now()
 
-    )
-    new_trade.save()
+        new_trade = Trade(
+            user = user,
+            service = service,
+            datetime = str(now),
+            is_accept = True,
+            user_id = user_id,
+            service_id = service_id
 
-    return "Already sent"
+        )
+        new_trade.save()
+
+        return "Already sent"
 @app.route("/confirmed/<user_id>/<service_id>")
 def confirm(user_id, service_id):
     Trade.objects(service_id = service_id).update(set__is_accept = False)
