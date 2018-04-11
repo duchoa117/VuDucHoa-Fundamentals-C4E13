@@ -11,8 +11,16 @@ app.secret_key = "anhquydeptraichoe10diemdi:VVVV"
 mlab.connect()
 @app.route('/')
 def all_services():
-    services = Service.objects()
-    return render_template('all_services.html',services = services)
+    checked = False
+    users = User.objects()
+    for user in users:
+        if str(user["id"]) in session:
+            user = user
+            checked = True
+    if checked:
+        return redirect(url_for('all_services_for_user',user_id = user["id"]))
+    else:
+        return render_template('all_services.html', services = Service.objects())
 @app.route('/admin')
 def admin():
     services = Service.objects()
@@ -149,9 +157,16 @@ def loggin():
         if checked:
             username_exact = User.objects(username__exact = form["username"])
             session[str(username_exact[0]["id"])] = True
-            return redirect(url_for('all_services'))
+
+            return redirect(url_for("all_services_for_user",user_id = str(username_exact[0]["id"]))) #******************
         else:
             return "Fail"
+@app.route("/all_services_for_user/<user_id>")
+def all_services_for_user(user_id):
+    services = Service.objects()
+    return render_template('all_services_for_user.html',user_id = user_id, services = services)
+
+
 @app.route("/get_service/<user>/<service>/<user_id>/<service_id>")
 def get_service(user, service, user_id, service_id):
     checked = False
@@ -200,6 +215,10 @@ def password():
             return redirect(url_for('all_services'))
         else:
             return "Wrong. Try again"
+@app.route('/logout/<user_id>')
+def logout(user_id):
+    del session[user_id]
+    return redirect(url_for('all_services'))
 
 
 

@@ -5,11 +5,7 @@
     <title></title>
   </head>
   <body>
-    <a href="{{ url_for('admin') }}">ADMIN</a>
-    <br>
-    <a href="{{ url_for('loggin') }}">Loggin</a>
-    <br>
-    <a href="{{ url_for('sign_up')}}">Sign up</a>
+    <a href="{{url_for('logout', user_id =  user_id )}}">Logout</a>
     <br>
     <br>
     {% for service in services %}
