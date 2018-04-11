@@ -195,8 +195,7 @@ def get_service(user, service, user_id, service_id):
 def confirm(user_id, service_id):
     Trade.objects(service_id = service_id).update(set__is_accept = False)
     Service.objects(id = service_id).update(set__status = "Busy")
-    Service.reload()
-    Trade.reload()
+
     return redirect(url_for('trade_table'))
 @app.route("/password_change", methods = ["GET", 'POST'])
 def password():
