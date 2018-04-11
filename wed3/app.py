@@ -211,7 +211,6 @@ def password():
                 checked = True
         if checked:
             User.objects(username = form['username']).update(set__password = form["new_password"])
-            User.reload()
             return redirect(url_for('all_services'))
         else:
             return "Wrong. Try again"
