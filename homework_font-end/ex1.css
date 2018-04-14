@@ -1,0 +1,32 @@
+#background {
+  background-image: url("https://atgbcentral.com/data/out/164/5420462-lion-images-hd.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+}
+.text-transform-uppercase {
+  text-transform: uppercase;
+}
+.text-center {
+  text-align: center;
+}
+.flex-row {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+
+}
+.border {
+  border-top: solid;
+  border-color: white;
+  width: 200px;
+
+}
+.mr-10 {
+  margin: 10px 10px 20px 10px
+}
+
+.img-circle {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
