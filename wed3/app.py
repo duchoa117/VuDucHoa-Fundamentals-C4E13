@@ -10,7 +10,11 @@ import mlab
 app.secret_key = "anhquydeptraichoe10diemdi:VVVV"
 mlab.connect()
 @app.route('/')
-def all_services():
+def home_page():
+    return render_template("index.html")
+@app.route('/list_service/<service_gender>')
+def all_services(service_gender):
+    print(service_gender)
     checked = False
     users = User.objects()
     for user in users:
@@ -18,9 +22,9 @@ def all_services():
             user = user
             checked = True
     if checked:
-        return redirect(url_for('all_services_for_user',user_id = user["id"]))
+        return redirect(url_for('all_services_for_user',user_id = user["id"], service_gender = service_gender))
     else:
-        return render_template('all_services.html', services = Service.objects())
+        return render_template('all_services.html', services = Service.objects(gender = service_gender))
 @app.route('/admin')
 def admin():
     services = Service.objects()
@@ -64,7 +68,7 @@ def create():
 
         )
         new_service.save()
-        return redirect(url_for('all_services'))
+        return redirect(url_for('index'))
 @app.route('/detail/fix/<service_id>', methods = ["GET", "POST"])
 def fix(service_id):
     services = Service.objects(id = service_id)
@@ -85,12 +89,12 @@ def fix(service_id):
                 set__status = form["status"]
 
         )
-        return redirect(url_for('all_services'))
+        return redirect(url_for('home_page'))
 @app.route('/detail/del/<service_id>')
 def delete(service_id):
     services = Service.objects(id = service_id)
     services.delete()
-    return redirect(url_for('all_services'))
+    return redirect(url_for('home_page'))
 @app.route("/sign_up", methods = ["GET", "POST"])
 def sign_up():
     confirm_username = False
@@ -158,12 +162,13 @@ def loggin():
             username_exact = User.objects(username__exact = form["username"])
             session[str(username_exact[0]["id"])] = True
 
-            return redirect(url_for("all_services_for_user",user_id = str(username_exact[0]["id"]))) #******************
+            return redirect(url_for("home_page")) #******************
         else:
             return "Fail"
-@app.route("/all_services_for_user/<user_id>")
-def all_services_for_user(user_id):
-    services = Service.objects()
+@app.route("/all_services_for_user/<user_id>/<service_gender>")
+def all_services_for_user(user_id,service_gender):
+    services = Service.objects(gender = service_gender)
+
     return render_template('all_services_for_user.html',user_id = user_id, services = services)
 
 
@@ -210,13 +215,13 @@ def password():
                 checked = True
         if checked:
             User.objects(username = form['username']).update(set__password = form["new_password"])
-            return redirect(url_for('all_services'))
+            return redirect(url_for('home_page'))
         else:
             return "Wrong. Try again"
 @app.route('/logout/<user_id>')
 def logout(user_id):
     del session[user_id]
-    return redirect(url_for('all_services'))
+    return redirect(url_for('home_page'))
 
 
 

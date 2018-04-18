@@ -3,39 +3,61 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    {% include "meta-data.html" %}
+    <link rel="stylesheet" href="../static/detail/detail.css">
   </head>
   <body>
-    {% for service in services %}
-    <img src="{{ service.image }}" alt="Đợi đi">
+      {% for service in services %}
+    <div class="container">
+      <div class="bg-img-iloveyou h-400px d-flex align-items-end border border-dark">
+        <img class="size-picture" src="{{ service.image }}" alt="Đợi đi">
+      </div>
+      <br>
+      <div class="bg-light border border-dark">
+        <h2> <i class="fas fa-user-circle"></i> Giới thiệu</h2>
+      </div>
+      <br>
+      <div class="border border-dark">
+        <h3 class="text-primary">{{ service.name }}</h3>
+        <p>-Gender: {{ "Male" if service.gender == 1 else "Female" }}</p>
+        <br>
+
+        <p>-Year of birth: {{ service.yob }}</p>
+        <br>
+
+        <p>-Height: {{ service.height }} (cm)</p>
+        <br>
+
+        <p>-Phone number: {{ service.phone_number }}</p>
+        <br>
+
+        <p>-Addserss: {{ service.address }}</p>
+        <br>
+
+        <p>-Description: {{ service.description }}</p>
+        <br>
+
+        <p>-Measurements: {{ service.measurements[0]}}-{{ service.measurements[1]}}-{{ service.measurements[2]}}</p>
+        <br>
+
+        <p>-Status: {{ service.status }}</p>
+        <br>
+        {% if service.status == "Free" %}
+          <a href="{{ url_for('get_service', user = user.username , service = service.name , user_id = user.id, service_id = service.id)}}"> Get this service </a>
+        {% endif %}
+        {% endfor %}
+
+
+      </div>
+
+      </div>
+
+
+    </div>
+
+
     <br>
-    <h3>{{ service.name }}</h3>
-    <b>Gender: {{ "Male" if service.gender == 1 else "Female" }}</b>
-    <br>
-    <br>
-    <b>Year of birth: {{ service.yob }}</b>
-    <br>
-    <br>
-    <b>Height: {{ service.height }} (cm)</b>
-    <br>
-    <br>
-    <b>Phone number: {{ service.phone_number }}</b>
-    <br>
-    <br>
-    <b>Addserss: {{ service.address }}</b>
-    <br>
-    <br>
-    <b>Description: {{ service.description }}</b>
-    <br>
-    <br>
-    <b>Measurements: {{ service.measurements[0]}}-{{ service.measurements[1]}}-{{ service.measurements[2]}}</b>
-    <br>
-    <br>
-    <b>Status: {{ service.status }}</b>
-    <br>
-    {% if service.status == "Free" %}
-      <a href="{{ url_for('get_service', user = user.username , service = service.name , user_id = user.id, service_id = service.id)}}">Get this service</a>
-    {% endif %}
-    {% endfor %}
+
 
   </body>
 </html>

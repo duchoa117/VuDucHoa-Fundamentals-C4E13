@@ -1,0 +1,68 @@
+.font-lobster {
+  font-family: 'Lobster', cursive;
+}
+.mb-400px {
+  margin-bottom: 400px;
+}
+.h-200px {
+  height: 200px;
+}
+.bg-img-fm{
+  background-image: url("../image/image/female.jpg");
+  background-size: cover;
+}
+.bg-img-m {
+  background-image: url("../image/image/male.jpg");
+  background-size: cover;
+}
+.h-600px {
+  height: 600px;
+}
+.bg-img-night {
+  background-image: url("../image/image/night.jpg");
+  background-size: 100% 100% ;
+
+}
+.bg-size-100 {
+  background-size: 100% 100%;
+}
+.bg-img-1 {
+  background-image: url("../image/image/hand.jpg");
+  background-repeat: no-repeat;
+  margin: 0 10px;
+
+}
+.bg-img-2 {
+  background-image: url("../image/image/rocks.jpg");
+  background-repeat: no-repeat;
+  margin: 0 10px;
+}
+.bg-img-3 {
+  background-image: url("../image/image/steel.jpg");
+  background-repeat: no-repeat;
+  margin: 0 10px;
+}
+.bg-img-4 {
+  background-image: url("../image/image/woods.jpg");
+  background-repeat: no-repeat;
+  margin: 0 10px;
+}
+.bg-img-5 {
+  background-image: url("../image/image/lightning.jpg");
+  background-repeat: no-repeat;
+  margin: 0 10px;
+}
+.bg-img-6 {
+  background-image: url("../image/image/slide5.jpg");
+  background-repeat: no-repeat;
+  margin: 0 10px;
+}
+.h-25 {
+  height: 25%;
+}
+.bg-gray {
+  background-color: #adadad;
+}
+.h-50px {
+  height: 50px;
+}

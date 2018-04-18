@@ -3,25 +3,53 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    {% include "meta-data.html" %}
+    <link rel="stylesheet" href="../static/service/service.css">
   </head>
-  <body>
-    <a href="{{ url_for('admin') }}">ADMIN</a>
-    <br>
-    <a href="{{ url_for('loggin') }}">Loggin</a>
-    <br>
-    <a href="{{ url_for('sign_up')}}">Sign up</a>
-    <br>
-    <br>
-    {% for service in services %}
-    <img src="{{ service.image }}" alt="Đợi đi">
-    <br>
-    <h3>{{ service.name }}</h3>
-    <h3>Status: {{ service.status}}</h3>
-    <a href="{{ url_for('detail',service_id = service.id) }}">Detail</a>
-    <br>
-    <br>
 
-    {% endfor %}
+  <body>
+    <div class="bg-img-sky">
+      <div class="container ">
+        <div class="border border-dark d-flex align-items-center bg-light">
+          <p class="bold "><i class="fas fa-users"></i> Mọi người</p>
+
+        </div>
+        <!-- <div class="bg-img-capdoi01 h-400px"> -->
+
+        <!-- </div> -->
+        <br>
+        <div class="border-top border-left border-right border-dark bg-light">
+          {% for service in services %}
+          <div class=" border-bottom border-dark d-flex justify-content-between">
+            <img class="size-picture" src="{{ service.image }}" alt="Đợi đi">
+           <div class="col-md-9">
+              <h3 class="text-primary">{{ service.name }}</h3>
+              <h5 >Status: {{ service.status}}</h5>
+
+            </div>
+            <div class="col-md-2 d-flex align-items-center">
+              <a class="btn btn-dark "href="{{ url_for('detail',service_id = service.id) }}">Detail</a>
+            </div>
+
+          </div>
+
+          {% endfor %}
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- <a href="{{ url_for('admin') }}">ADMIN</a> -->
+    <!-- <br> -->
+    <!-- <a href="{{ url_for('loggin') }}">Loggin</a> -->
+    <!-- <br> -->
+    <!-- <a href="{{ url_for('sign_up')}}">Sign up</a> -->
+    <!-- <br> -->
+
 
   </body>
 </html>

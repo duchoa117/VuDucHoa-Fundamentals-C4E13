@@ -1,0 +1,18 @@
+.bg-img-capdoi01 {
+  background-image: url("https://c1.staticflickr.com/7/6159/6149414606_c8bd6ebaa7_b.jpg");
+  background-size: 100% 100%
+}
+.h-400px {
+  height: 400px
+}
+.bg-img-sky {
+  background-image: url("http://www.thelucidcreativity.com/wp-content/uploads/2015/09/love1.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  height: 600px;
+}
+.size-picture {
+  height: 60px;
+  width: 60px;
+  margin: 3px 0px 3px 3px;
+}
